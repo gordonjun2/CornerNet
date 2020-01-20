@@ -105,7 +105,7 @@ class Drawer(object):
         frameDC = copy.deepcopy(frame)
         self._put_label(frameDC, label)
         for i, det in enumerate(dets):
-            _color = self.color_palette[i]
+            _color = self.color_palette[i%8]
             l, t, w, h = int(det[2][0]), int(det[2][1]), int(det[2][2]), int(det[2][3])
             r = l + w - 1
             b = t + h - 1
@@ -137,6 +137,6 @@ if __name__ == "__main__":
     drawer = Drawer()
     # bbs = od.detect_ltwh('000000466319.jpg', classes=['car'], buffer=0.3)
     # img_with_bb = drawer.draw_bbs(imageio.imread('000000466319.jpg'), [[199.02, 86.78, 135.59, 339.53]])
-    img_with_bb_det = drawer.draw_dets(imageio.imread('000000000016.jpg'), [('person', 0.95, (147.09, 126.52, 326.81, 503.52)), ('person', 0.63, (0.52, 198.63, 38.77, 315.76)), ('skateboard', 0.69, (237.94, 93.35, 24.51, 30.33)), ('tennis racket', 0.82, (34.69, 255.2, 212.23, 75.14))])
+    img_with_bb_det = drawer.draw_dets(imageio.imread('000000000013.jpg'), [('person', 0.51, (156.64, 568.61, 335.65, 706.84))])
     plt.imshow(img_with_bb_det)
     plt.show()
