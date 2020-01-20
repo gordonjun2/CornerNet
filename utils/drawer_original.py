@@ -2,8 +2,6 @@ import cv2
 import copy
 import numpy as np
 import seaborn as sns
-import imageio
-import matplotlib.pyplot as plt
 
 
 class Drawer(object):
@@ -16,7 +14,7 @@ class Drawer(object):
         self.DARKPURPLE = (17, 7, 60)
         self.font = font
         self.fontScale = 1
-        self.fontThickness = 1
+        self.fontThickness = 2
         self.indFontScale = self.fontScale * 2.5
         self.indFontThickness = self.fontThickness * 2
         self.indTextSize = cv2.getTextSize(text=str(
@@ -57,8 +55,7 @@ class Drawer(object):
             print('Color: ', _color)
             if bb is None:
                 continue
-            l, t, w, h = int(bb[0]), int(bb[1]), int(
-                bb[2]), int(bb[3])  # [int(x) for x in bb[0]]
+            l, t, w, h = [int(x) for x in bb[0]]
             r = l + w - 1
             b = t + h - 1
 
@@ -75,8 +72,7 @@ class Drawer(object):
             print('Color: ', _color)
             if bb is None:
                 continue
-            l, t, w, h = int(bb[0]), int(bb[1]), int(
-                bb[2]), int(bb[3])  # [int(x) for x in bb[0]]
+            l, t, w, h = [int(x) for x in bb[0]]
             r = l + w - 1
             b = t + h - 1
 
@@ -96,22 +92,25 @@ class Drawer(object):
         self._put_label(frameDC, label)
         return frameDC
 
-    # det = ( class, confidence , (x, y, w, h) )
     def draw_dets(self, frame, dets, color=None, label=''):
         if dets is None or len(dets) == 0:
             return frame
-        #if color is None:
-            #color = self.color
+        if color is None:
+            color = self.color
         frameDC = copy.deepcopy(frame)
         self._put_label(frameDC, label)
-        for i, det in enumerate(dets):
-            _color = self.color_palette[i]
-            l, t, w, h = int(det[2][0]), int(det[2][1]), int(det[2][2]), int(det[2][3])
-            r = l + w - 1
-            b = t + h - 1
-            text = '{}: {:0.2f}%'.format(det[0], det[1]*100)
-            cv2.rectangle(frameDC, (l, t), (r, b), _color, 2)
-            cv2.putText(frameDC, text, (l+5, b-10), self.font, self.fontScale, _color, self.fontThickness)
+        for det in dets:
+            # det = ( class, confidence , (x, y, w, h) )
+            l = int(det[2][0] - det[2][2]/2)
+            t = int(det[2][1] - det[2][3]/2)
+            r = int(det[2][0] + det[2][2]/2)
+            b = int(det[2][1] + det[2][3]/2)
+            text = '{}: {:0.2f}%'.format(det[0].decode("utf-8"), det[1]*100)
+            cv2.rectangle(frameDC, (l, t), (r, b), color, 2)
+            cv2.putText(frameDC,
+                        text,
+                        (l+5, b-10),
+                        self.font, self.fontScale, color, self.fontThickness)
         return frameDC
 
     def draw_bb_name(self, frame, bb, name, color=None, label=''):
@@ -134,9 +133,6 @@ class Drawer(object):
 
 if __name__ == "__main__":
     # od = get_OD()
-    drawer = Drawer()
-    # bbs = od.detect_ltwh('000000466319.jpg', classes=['car'], buffer=0.3)
-    # img_with_bb = drawer.draw_bbs(imageio.imread('000000466319.jpg'), [[199.02, 86.78, 135.59, 339.53]])
-    img_with_bb_det = drawer.draw_dets(imageio.imread('000000000016.jpg'), [('person', 0.95, (147.09, 126.52, 326.81, 503.52)), ('person', 0.63, (0.52, 198.63, 38.77, 315.76)), ('skateboard', 0.69, (237.94, 93.35, 24.51, 30.33)), ('tennis racket', 0.82, (34.69, 255.2, 212.23, 75.14))])
-    plt.imshow(img_with_bb_det)
-    plt.show()
+    # drawer = Drawer()
+    # bbs = od.detect_ltwh(image, classes=['ship'], buffer=0.3)
+    # drawer.draw_bbs(image, bbs)
