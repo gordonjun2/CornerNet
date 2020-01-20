@@ -137,6 +137,6 @@ if __name__ == "__main__":
     drawer = Drawer()
     # bbs = od.detect_ltwh('000000466319.jpg', classes=['car'], buffer=0.3)
     # img_with_bb = drawer.draw_bbs(imageio.imread('000000466319.jpg'), [[199.02, 86.78, 135.59, 339.53]])
-    img_with_bb_det = drawer.draw_dets(imageio.imread('000000000013.jpg'), [('person', 0.51, (156.64, 568.61, 335.65, 706.84))])
+    img_with_bb_det = drawer.draw_dets(imageio.imread('000000000007.jpg'), [('person', 0.56, (181.08, 568.62, 307.4, 706.53))])
     plt.imshow(img_with_bb_det)
     plt.show()
