@@ -21,7 +21,7 @@ class MSCOCO(DETECTION):
 
         self._split = split
         self._dataset = {
-            "trainval": "trainval2014",
+            "trainval": "train2014",
             "minival": "val2017",
             "testdev": "testdev2017"
         }[self._split]
