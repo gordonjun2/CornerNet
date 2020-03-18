@@ -149,6 +149,6 @@ if __name__ == "__main__":
     nnet.eval_mode()
 
     if args.file_dir[args.file_dir.rfind('.') + 1:].lower() in video_ext:
-        show_video(args.file_dir, nnet, drawer, args.score_min, args.save)                     # , args.debug) <--- UNTESTED (Another way of adding bboxes)
+        show_video(args.file_dir, nnet, drawer, args.score_min, args.save)
     else:
         show_image(args.file_dir, nnet, drawer, args.score_min, args.save)
