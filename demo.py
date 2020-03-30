@@ -13,7 +13,7 @@ import importlib
 import numpy as np
 import matplotlib
 from test.coco_video import kp_detection
-from nnet.py_factory_video import NetworkFactory        # Import CenterNet Model
+from nnet.py_factory_video import NetworkFactory        # Import CornerNet Model
 from db.detection_video import db_configs               # Import 'db' parameters
 
 image_ext = ['jpg', 'jpeg', 'png', 'webp']
