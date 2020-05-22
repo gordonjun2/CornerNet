@@ -1,77 +1,3 @@
-# Extra Instructions!
-
-Follow the original instruction below if you are not using OpenCV in any way.
-
-## OpenCV Installation Notes
-
-If you are using OpenCV, ensure that the PyTorch version (0.4.1) is installed in this environment.
-
-Steps to get OpenCV working:
-
-**1.** Once your "CenterNet" environment is created as shown below, install OpenCV using:
-
-  ```
-	conda install -c anaconda opencv
-  ```
-
-  If error (inconsistent environment) is shown, ignore and wait until you can update your packages. Type "y" to continue.
-  Note that this step will cause PyTorch to downgrade to 0.4.0.
-
-**2.** Update PyTorch 0.4.0 to 0.4.1 using:
-
-  ```
-	conda install pytorch==0.4.1 -c pytorch
-  ```
-
-**3.** When using video_demo.py for video inference, install seaborn and imageio using:
-
-  ```
-	conda install -c anaconda seaborn
-	conda install -c anaconda imageio
-  ```
-
-  If you face an OpenCV Error (cv2.imshow not implemented), install:
-	pip install opencv-contrib-python
-
-**4.** Done and enjoy CenterNet!
-
-## Real-Time Video Objection Detection Using CornerNet
-
-**1.** Activate CornerNet Environment
-
-**2.** To do real-time inference on a video, use:
-
-  ```
-  python video_demo.py --model <Select your model> --testiter <Enter '500000' if using pretrained model> --file <./path/to/video.mp4> --score <Remove bboxes based on this score> <--save>
-  ```
-
-  Example:
-
-  ```
-  python video_demo.py --model CornerNet --testiter 500000 --file road.mp4 --score 0.5 --save
-  ```    
-
-  ***Tips:***
-
-  -> Available model is: 'CornerNet'
-
-  -> Use '500000' in --testiter if you are using the pretrained model. Enter another value if your pretrained model was trained under that no. of iterations
-
-  -> Bboxes are kept or removed based on the score indicated in --score. The value should be 0 <= score >= 1. For example, if '--score 0.5' is used, then bboxes with confidence scores less than 0.5 will not be shown at the output.
-
-  -> Use '--save' if you want to save each recorded frame into .jpg images. The images will be saved under CenterNet/Video_Frames/To_Convert/.
-
-**3.** If you typed '--save' to save the recorded frames, you may also want to convert the frames into a video (no lag but it's not real-time). Do not rename the images. With the images already saved in the CornerNet/Video_Frames/To_Convert/ folder, enter CenterNet/Video_Frames and type the command:
-
-  ```
-  python frames_to_video.py
-  ```
-
-**4.** The converted video will be generated in the same directory.
-
-**5.** Done and enjoy CornerNet!
-
-
 # CornerNet: Training and Evaluation Code
 Update (4/18/2019): please check out [CornerNet-Lite](https://github.com/princeton-vl/CornerNet-Lite), more efficient variants of CornerNet
 
@@ -158,3 +84,74 @@ To use the multi-scale configuration file:
 ```
 python test.py CornerNet --testiter <iter> --split <split> --suffix multi_scale
 ```
+
+# Extra Instructions!
+
+## OpenCV Installation Notes
+
+If you are using OpenCV, ensure that the PyTorch version (0.4.1) is installed in this environment.
+
+Steps to get OpenCV working:
+
+**1.** Once your "CenterNet" environment is created as shown below, install OpenCV using:
+
+  ```
+	conda install -c anaconda opencv
+  ```
+
+  If error (inconsistent environment) is shown, ignore and wait until you can update your packages. Type "y" to continue.
+  Note that this step will cause PyTorch to downgrade to 0.4.0.
+
+**2.** Update PyTorch 0.4.0 to 0.4.1 using:
+
+  ```
+	conda install pytorch==0.4.1 -c pytorch
+  ```
+
+**3.** When using video_demo.py for video inference, install seaborn and imageio using:
+
+  ```
+	conda install -c anaconda seaborn
+	conda install -c anaconda imageio
+  ```
+
+  If you face an OpenCV Error (cv2.imshow not implemented), install:
+	pip install opencv-contrib-python
+
+**4.** Done and enjoy CenterNet!
+
+## Image/Video Objection Detection Using CornerNet
+
+**1.** Activate CornerNet Environment
+
+**2.** To do real-time inference on a video, use:
+
+  ```
+  python demo.py --model CornerNet --testiter <Enter '500000' if using pretrained model> --file <./path/to/video or ./path/to/image> --score <Remove bboxes based on this score> <--save>
+  ```
+
+  Example:
+
+  ```
+  python demo.py --model CornerNet --testiter 500000 --file road.mp4 --score 0.5 --save
+  ```    
+
+  ***Tips:***
+
+  -> Available model is: 'CornerNet'
+
+  -> Use '500000' in --testiter if you are using the pretrained model. Enter another value if your pretrained model was trained under that no. of iterations
+
+  -> Bboxes are kept or removed based on the score indicated in --score. The value should be 0 <= score >= 1. For example, if '--score 0.5' is used, then bboxes with confidence scores less than 0.5 will not be shown at the output.
+
+  -> Use '--save' if you want to save each recorded frame into .jpg images. The images will be saved under CenterNet/Video_Frames/To_Convert/.
+
+**3.** If you typed '--save' to save the recorded frames, you may also want to convert the frames into a video (no lag but it's not real-time). Do not rename the images. With the images already saved in the CornerNet/Video_Frames/To_Convert/ folder, enter CenterNet/Video_Frames and type the command:
+
+  ```
+  python Video_Frames/frames_to_video.py
+  ```
+
+**4.** The converted video will be generated in the same directory.
+
+**5.** Done and enjoy CornerNet!

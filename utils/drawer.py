@@ -131,7 +131,7 @@ class Drawer(object):
             cv2.rectangle(frameDC, (l, t), (r, b), _color, 2)
             cv2.putText(frameDC, text, (l+5, b-10), self.font, self.indFontScale, _color, self.fontThickness)    
         cv2.putText(frameDC, infer_text, (10, 30), self.font, self.fontScale * 0.75, (0, 0, 255), self.indFontThickness) 
-        return frameDC, 
+        return frameDC
 
     def draw_bb_name(self, frame, bb, name, color=None, label=''):
         if color is None:
